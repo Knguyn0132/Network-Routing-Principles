@@ -1,0 +1,14 @@
+Deny HTTP access from VLAN183 to ISP Loopback0 (138.80.0.1):
+deny tcp 148.13.0.0 0.0.7.255 host 138.80.0.1 eq www
+
+Deny all access from VLAN183 to ISP Loopback2 (159.23.0.1):
+deny ip 148.13.0.0 0.0.7.255 host 159.23.0.1
+
+Permit only HTTP access from VLAN183 to ISP Loopback1 (44.0.0.1):
+permit tcp 148.13.0.0 0.0.7.255 host 44.0.0.1 eq www
+
+Deny all other access to ISP Loopback1 (44.0.0.1):
+deny ip 148.13.0.0 0.0.7.255 host 44.0.0.1
+
+Permit all other internet traffic:
+permit ip any any
