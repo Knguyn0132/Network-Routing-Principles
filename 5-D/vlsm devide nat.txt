@@ -1,0 +1,9 @@
+First, divide the 141.12.2.0/24 pool into three equal sub-pools:
+
+For VLAN1: 141.12.2.0/26 (141.12.2.0 - 141.12.2.63)
+
+For VLANXXX: 141.12.2.64/26 (141.12.2.64 - 141.12.2.127)
+
+For VLANYYY: 141.12.2.128/26 (141.12.2.128 - 141.12.2.191)
+
+Note: The last 64 addresses (141.12.2.192 - 141.12.2.255) remain unused in this configuration.
