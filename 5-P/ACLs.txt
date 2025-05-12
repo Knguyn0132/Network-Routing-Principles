@@ -1,0 +1,13 @@
+Extended IP access list VLAN721
+permit tcp 27.0.0.0 0.0.7.255 host 148.33.0.1 eq www
+deny ip 27.0.0.0 0.0.7.255 host 148.33.0.1
+deny icmp 27.0.0.0 0.0.7.255 27.0.8.0 0.0.0.255 echo
+permit icmp 27.0.8.0 0.0.0.255 27.0.0.0 0.0.7.255 echo-reply
+permit ip any any
+
+Extended IP access list VLAN721
+permit tcp 27.0.0.0 0.0.7.255 host 148.33.0.1 eq www
+deny ip 27.0.0.0 0.0.7.255 host 148.33.0.1
+permit icmp 27.0.0.0 0.0.7.255 27.0.9.32 0.0.0.31 echo-reply
+deny icmp 27.0.0.0 0.0.7.255 27.0.9.32 0.0.0.31 echo
+permit ip any any
