@@ -1,0 +1,99 @@
+ISP#sh run
+Building configuration...
+
+Current configuration : 1013 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname ISP
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+username Sheldon password 0 nasa
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 65.0.38.1 255.255.255.255
+!
+interface Loopback1
+ ip address 121.83.0.82 255.255.255.255
+!
+interface Loopback2
+ ip address 121.82.60.37 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/1/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial0/1/1
+ ip address 34.157.25.105 255.255.255.252
+ encapsulation ppp
+ ppp authentication chap
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 154.82.105.0 255.255.255.0 34.157.25.106 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

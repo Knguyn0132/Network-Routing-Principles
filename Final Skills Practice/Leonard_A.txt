@@ -1,0 +1,140 @@
+Leonard#sh run
+Building configuration...
+
+Current configuration : 2395 bytes
+!
+version 15.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Leonard
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 192.168.2.182 255.255.255.248
+!
+interface GigabitEthernet0/0/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1.1
+ encapsulation dot1Q 1 native
+ ip address 192.168.2.190 255.255.255.248
+!
+interface GigabitEthernet0/0/1.37
+ encapsulation dot1Q 37
+ ip address 192.168.1.254 255.255.254.0
+ ip helper-address 192.168.2.193
+ ip access-group RAJ_VLAN in
+!
+interface GigabitEthernet0/0/1.82
+ encapsulation dot1Q 82
+ ip address 192.168.2.158 255.255.255.224
+ ip helper-address 192.168.2.193
+!
+interface GigabitEthernet0/0/1.83
+ encapsulation dot1Q 83
+ ip address 192.168.2.126 255.255.255.128
+!
+interface Serial0/1/0
+ ip address 192.168.2.194 255.255.255.252
+ clock rate 2000000
+!
+interface Serial0/1/1
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface GigabitEthernet0/0/1.37
+ passive-interface GigabitEthernet0/0/1.83
+ passive-interface GigabitEthernet0/0/1.82
+ passive-interface GigabitEthernet0/0/1.1
+ network 192.168.0.0 0.0.1.255 area 0
+ network 192.168.2.0 0.0.0.127 area 0
+ network 192.168.2.128 0.0.0.31 area 0
+ network 192.168.2.184 0.0.0.7 area 0
+ network 192.168.2.176 0.0.0.7 area 0
+ network 192.168.2.192 0.0.0.3 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended RAJ_VLAN
+ permit tcp 192.168.0.0 0.0.1.255 host 121.83.0.82 eq www
+ deny ip 192.168.0.0 0.0.1.255 host 121.83.0.82
+ permit icmp 192.168.0.0 0.0.1.255 host 121.82.60.37 echo
+ deny ip 192.168.0.0 0.0.1.255 host 121.82.60.37
+ permit tcp 192.168.0.0 0.0.1.255 192.168.2.176 0.0.0.7 eq www
+ permit tcp 192.168.0.0 0.0.1.255 192.168.2.176 0.0.0.7 eq 443
+ deny ip 192.168.0.0 0.0.1.255 192.168.2.176 0.0.0.7
+ permit ip any any
+ip access-list standard TELNET_LEONARD
+ permit 192.168.2.184 0.0.0.7
+ permit 192.168.0.0 0.0.1.255
+ deny any
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ access-class TELNET_LEONARD in
+ password bigbang
+ login
+line vty 5 15
+ access-class TELNET_LEONARD in
+ password bigbang
+ login
+!
+!
+!
+end
+
